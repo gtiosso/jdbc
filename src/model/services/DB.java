@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import model.exceptions.DbException;
@@ -42,11 +44,9 @@ public class DB {
 			catch (SQLException e) {
 				throw new DbException(e.getMessage());
 			}
-			// TODO: handle exception
 		}
 	}
-
-
+	
 	// Criando um metodo estatico para leitura das propriedades de conexão no
 	// arquivo "db.properties"
 	private static Properties loadProperties() {
@@ -57,7 +57,29 @@ public class DB {
 		} catch (IOException e) {
 			throw new DbException(e.getMessage());
 		}
-
 	}
 
+	// Criando o metodo estatico para fechar um ResutSet
+	public static void closeResultSet(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			}
+			catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			}
+		}
+	}
+
+	// Criando o metodo estatico para fechar um Statement
+	public static void closeStatement(Statement st) {
+		if (st != null) {
+			try {
+				st.close();
+			}
+			catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			}
+		}
+	}
 }
